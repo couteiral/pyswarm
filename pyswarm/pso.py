@@ -225,6 +225,11 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         it += 1
 
     print('Stopping search: maximum iterations reached --> {:}'.format(maxiter))
+
+    # Check parallelization
+    if processes > 1:
+        mp_pool.close()
+        mp_pool.join()
     
     if not is_feasible(g):
         print("However, the optimization couldn't find a feasible design. Sorry")
